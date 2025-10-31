@@ -31,16 +31,37 @@ router.post('/', async (req, res) => {
       })
     }
 
-    // Check availability
+    // Find the time slot and get capacity
     const timeSlot = experience.timeSlots.find(slot => slot.time === selectedTime)
-    if (!timeSlot || timeSlot.soldOut || timeSlot.available < quantity) {
+    if (!timeSlot) {
       return res.status(400).json({
         success: false,
-        message: 'Selected time slot is not available for the requested quantity'
+        message: 'Invalid time slot'
       })
     }
 
-    // Create booking
+    const capacity = timeSlot.capacity || 0
+
+    // Calculate already booked quantity for this specific date+time
+    const existingBookings = await Booking.find({
+      experienceId,
+      selectedDate,
+      selectedTime,
+      status: 'confirmed'
+    })
+
+    const bookedQuantity = existingBookings.reduce((sum, booking) => sum + booking.quantity, 0)
+    const available = capacity - bookedQuantity
+
+    // Check availability
+    if (available < quantity) {
+      return res.status(400).json({
+        success: false,
+        message: `Only ${available} slot(s) available for the selected time. Requested: ${quantity}`
+      })
+    }
+
+    // Create booking (no need to mutate experience document)
     const booking = await Booking.create({
       experienceId,
       experienceTitle: experience.title,
@@ -57,13 +78,6 @@ router.post('/', async (req, res) => {
       total,
       status: 'confirmed'
     })
-
-    // Update availability (decrement available slots)
-    timeSlot.available -= quantity
-    if (timeSlot.available === 0) {
-      timeSlot.soldOut = true
-    }
-    await experience.save()
 
     res.status(201).json({
       success: true,

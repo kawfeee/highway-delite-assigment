@@ -5,9 +5,14 @@ const timeSlotSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  available: {
+  capacity: {
     type: Number,
     required: true,
+    default: 0
+  },
+  available: {
+    type: Number,
+    required: false,
     default: 0
   },
   soldOut: {
