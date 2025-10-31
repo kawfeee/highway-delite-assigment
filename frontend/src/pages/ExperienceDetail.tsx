@@ -125,12 +125,12 @@ export default function ExperienceDetail() {
             {/* Title & Description */}
             <div>
               <h1 className="hd-detail-title text-2xl font-semibold mb-2">{experience.title}</h1>
-              <p className="hd-detail-description text-sm text-gray-600">{experience.description}</p>
+              <p className="hd-detail-description" style={{ color: '#6C6C6C', fontWeight: 400, fontSize: '16px' }}>{experience.description}</p>
             </div>
 
             {/* Choose Date */}
             <div className="hd-date-section">
-              <h2 className="text-base font-semibold mb-3">Choose date</h2>
+              <h2 className="mb-3" style={{ fontWeight: 500, fontSize: '18px', color: '#161616' }}>Choose date</h2>
               <div className="flex gap-2 flex-wrap">
                 {experience.availableDates.map((date) => {
                   const dateObj = new Date(date)
@@ -145,7 +145,7 @@ export default function ExperienceDetail() {
                       className={`hd-date-button px-4 py-2 text-sm border rounded ${
                         isSelected 
                           ? 'bg-yellow-400 border-yellow-400 font-semibold' 
-                          : 'bg-white border-gray-300 hover:border-gray-400'
+                          : 'bg-white border-gray-300 hover:border-gray-400 text-[#838383]'
                       }`}
                     >
                       {month} {day}
@@ -157,8 +157,8 @@ export default function ExperienceDetail() {
 
             {/* Choose Time */}
             <div className="hd-time-section">
-              <h2 className="text-base font-semibold mb-2">Choose time</h2>
-              <p className="text-xs text-gray-500 mb-3">All times are in IST (GMT +5:30)</p>
+              <h2 className="mb-2" style={{ fontWeight: 500, fontSize: '18px', color: '#161616' }}>Choose time</h2>
+              
               <div className="flex gap-2 flex-wrap">
                 {experience.timeSlots.map((slot) => {
                   const isSelected = selectedTime === slot.time
@@ -169,12 +169,12 @@ export default function ExperienceDetail() {
                       key={slot.time}
                       onClick={() => !isSoldOut && setSelectedTime(slot.time)}
                       disabled={isSoldOut}
-                      className={`hd-time-button px-4 py-2 text-sm border rounded flex items-center gap-2 ${
+                      className={`hd-time-button px-4 py-2 text-sm rounded flex items-center gap-2 ${
                         isSoldOut
-                          ? 'bg-gray-200 border-gray-300 text-gray-400 cursor-not-allowed'
+                          ? 'bg-gray-200 border border-gray-300 text-gray-400 cursor-not-allowed'
                           : isSelected
-                          ? 'bg-yellow-400 border-gray-400 font-semibold'
-                          : 'bg-white border-gray-300 hover:border-gray-400'
+                          ? 'bg-yellow-400 font-semibold'
+                          : 'bg-white border border-gray-300 hover:border-gray-400 text-[#838383]'
                       }`}
                     >
                       <span>{slot.time}</span>
@@ -184,12 +184,13 @@ export default function ExperienceDetail() {
                   )
                 })}
               </div>
+              <p className="text-xs text-gray-500 mb-3 pt-4">All times are in IST (GMT +5:30)</p>
             </div>
 
             {/* About */}
-            <div className="hd-about-section bg-gray-100 p-4 rounded">
-              <h2 className="text-base font-semibold mb-2">About</h2>
-              <p className="text-sm text-gray-600">{experience.aboutText}</p>
+            <h2 className="mb-1" style={{ fontWeight: 500, fontSize: '18px', color: '#161616', marginBottom: '6px' }}>About</h2>
+            <div className="hd-about-section bg-gray-100 p-4 rounded" style={{ marginTop: 0 }}>
+              <p className="text-sm text-[#838383]">{experience.aboutText}</p>
             </div>
           </div>
 
