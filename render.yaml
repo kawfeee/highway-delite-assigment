@@ -1,0 +1,38 @@
+# Render manifest for Highway Delite (example). Edit names and env vars in Render dashboard before deploy.
+# See https://render.com/docs/render-manifest for details.
+
+services:
+  - type: web_service
+    name: highway-delite-backend
+    env: node
+    plan: free
+    repo: <YOUR_GITHUB_REPO_URL>
+    branch: master
+    root: backend
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: MONGODB_URI
+        scope: env
+      - key: NODE_ENV
+        value: production
+        scope: env
+      - key: FRONTEND_URL
+        scope: env
+
+  - type: static_site
+    name: highway-delite-frontend
+    repo: <YOUR_GITHUB_REPO_URL>
+    branch: master
+    root: frontend
+    buildCommand: "npm install && npm run build"
+    publishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        scope: env
+
+# Notes:
+# 1. Replace <YOUR_GITHUB_REPO_URL> with your GitHub repo HTTPS URL (e.g. https://github.com/username/repo).
+# 2. Do NOT store secrets (MONGODB_URI) in this file; instead add them via the Render dashboard's Environment tab for the service.
+# 3. After creating services, set the env var VITE_API_BASE_URL to https://<backend-service>.onrender.com/api for the frontend static site.
+# 4. To seed the DB initially, either run `node seed.js` as a one-off on the backend service (Render dashboard "Shell/Console"), or set FORCE_SEED=true temporarily and run seed.
