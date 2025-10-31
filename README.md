@@ -1,301 +1,260 @@
-# Highway Delite - Travel Experiences Platform
+# Highway Delite - Travel Experience Booking Platform
 
-A complete full-stack web application for exploring and booking travel experiences. Built with React, TypeScript, Tailwind CSS on the frontend and Node.js, Express, MongoDB on the backend.
+> **Live Demo:** https://highway-delite-frontend-qvwl.onrender.com
 
-## 🚀 Quick Start
+A full-stack travel booking application where users can explore travel experiences, select available slots, and complete bookings. Built with React + TypeScript (frontend) and Node.js + Express + MongoDB (backend).
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-- MongoDB Atlas account (already configured)
+---
 
-### Installation & Setup
+## 📦 Prerequisites
 
-#### 1. Backend Setup
+Before running this project, ensure you have:
+
+- **Node.js** (v18+) - [Download](https://nodejs.org/)
+- **npm** (comes with Node.js)
+- **MongoDB Atlas Account** - [Sign Up Free](https://www.mongodb.com/cloud/atlas)
+- **Git** - [Download](https://git-scm.com/)
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the Repository
 
 ```bash
-# Navigate to backend directory
+git clone https://github.com/kawfeee/highway-delite-assigment.git
+cd highway-delite-assigment
+```
+
+### 2. Install Dependencies
+
+**Backend:**
+```bash
 cd backend
-
-# Install dependencies
 npm install
-
-# Configure MongoDB Atlas IP Whitelist (IMPORTANT!)
-# Go to https://cloud.mongodb.com/
-# Navigate to Network Access → Add IP Address
-# Either add your current IP or allow access from anywhere (0.0.0.0/0)
-
-# Seed the database with sample data
-node seed.js
-
-# Start the backend server (runs on port 5000)
-npm run dev
 ```
 
-#### 2. Frontend Setup
+**Frontend:**
+```bash
+cd ../frontend
+npm install
+```
+
+### 3. Configure Environment Variables
+
+**Create `backend/.env` file:**
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/highway-delite?retryWrites=true&w=majority
+PORT=5000
+NODE_ENV=development
+```
+
+**Get MongoDB URI:**
+1. Go to [MongoDB Atlas](https://cloud.mongodb.com)
+2. Create a free M0 cluster
+3. Click "Connect" → "Connect your application"
+4. Copy connection string and replace `<username>`, `<password>`, `<cluster>`
+5. In Atlas, go to **Network Access** → Add IP `0.0.0.0/0` (allow all IPs for testing)
+
+### 4. Seed the Database
 
 ```bash
-# Navigate to frontend directory (open new terminal)
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start the development server (runs on port 5173)
-npm run dev
+cd backend
+node seed.js
 ```
 
-#### 3. Access the Application
+Expected output:
+```
+✅ Successfully seeded 8 experiences
+```
 
-- **Frontend:** http://localhost:5173
-- **Backend API:** http://localhost:5000/api
-- **Health Check:** http://localhost:5000/api/health
+### 5. Run the Application
+
+**Terminal 1 - Backend:**
+```bash
+cd backend
+npm start
+```
+Backend runs on: http://localhost:5000
+
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+Frontend runs on: http://localhost:5173
+
+---
+
+## ✨ Features
+
+- Browse 8 travel experiences (Kayaking, Hiking, Camping, etc.)
+- Real-time search functionality
+- Dynamic availability based on bookings
+- Complete booking flow with validation
+- Promo code support (`SAVE10`, `FLAT100`)
+- Persistent bookings (survives server restarts)
+- Prevents double-booking
+- Responsive design with Tailwind CSS
+
+---
+
+## 🛠 Tech Stack
+
+**Frontend:** React 18, TypeScript, Vite, React Router, Tailwind CSS  
+**Backend:** Node.js, Express, MongoDB, Mongoose  
+**Deployment:** Render (Static Site + Web Service)
+
+---
+
+## 🧪 Testing the Application
+
+1. Open http://localhost:5173
+2. Browse experiences on home page
+3. Click "View Details" on any card
+4. Select date, time, and quantity
+5. Click "Proceed to Checkout"
+6. Fill in customer details
+7. Try promo code `SAVE10` for 10% off
+8. Complete booking
+9. View confirmation with booking reference ID
+
+**To Verify Persistence:**
+- Restart both servers
+- Navigate to the same experience
+- Availability should be reduced by your booking
+
+---
 
 ## 📁 Project Structure
 
 ```
-highway-delite/
-├── backend/                    # Node.js + Express backend
-│   ├── config/
-│   │   └── database.js        # MongoDB connection
-│   ├── models/
-│   │   ├── Experience.js      # Experience model
-│   │   └── Booking.js         # Booking model
-│   ├── routes/
-│   │   ├── experiences.js     # Experience endpoints
-│   │   └── bookings.js        # Booking endpoints
-│   ├── server.js              # Express server
-│   ├── seed.js                # Database seeding script
-│   ├── .env                   # Environment variables
-│   └── package.json
+highway-delite-assigment/
+├── backend/
+│   ├── config/database.js       # MongoDB connection
+│   ├── models/                  # Mongoose schemas
+│   ├── routes/                  # API endpoints
+│   ├── seed.js                  # Database seeding
+│   └── server.js                # Express server
 │
-└── frontend/                   # React + TypeScript + Vite
-    ├── src/
-    │   ├── assets/
-    │   │   └── svg/
-    │   │       └── logo.svg   # App logo
-    │   ├── components/
-    │   │   └── ExperienceCard.tsx
-    │   ├── pages/
-    │   │   ├── Home.tsx       # Main landing page
-    │   │   ├── ExperienceDetail.tsx
-    │   │   ├── Checkout.tsx   # Booking checkout
-    │   │   └── Result.tsx     # Confirmation page
-    │   ├── services/
-    │   │   └── api.ts         # API service layer
-    │   ├── styles/
-    │   │   └── index.css      # Global styles
-    │   ├── App.tsx            # Root component with routing
-    │   └── main.tsx           # Entry point
-    ├── index.html
-    ├── vite.config.ts
-    ├── tailwind.config.cjs
-    └── package.json
+├── frontend/
+│   ├── public/images/           # Experience images
+│   ├── src/
+│   │   ├── components/          # React components
+│   │   ├── pages/               # Page components
+│   │   ├── services/api.ts      # API service
+│   │   └── App.tsx              # Main app
+│   └── vite.config.ts           # Vite configuration
+│
+└── README.md
 ```
 
-## 🎨 Features
-
-### Frontend
-- ✅ Responsive grid layout with experience cards
-- ✅ Dynamic routing with React Router
-- ✅ Experience detail pages with date/time selection
-- ✅ Checkout flow with customer information
-- ✅ Promo code validation
-- ✅ Booking confirmation page
-- ✅ Inter font integration
-- ✅ Tailwind CSS with semantic class names (hd-*)
-
-### Backend
-- ✅ RESTful API with Express
-- ✅ MongoDB Atlas integration
-- ✅ Experience CRUD operations
-- ✅ Booking creation and management
-- ✅ Promo code validation
-- ✅ Availability tracking
-- ✅ Automatic slot updates
+---
 
 ## 🔌 API Endpoints
 
-### Experiences
-- `GET /api/experiences` - Get all experiences
-- `GET /api/experiences/:id` - Get experience details
-- `POST /api/experiences` - Create new experience
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/experiences` | Get all experiences |
+| GET | `/api/experiences/:id` | Get single experience (with dynamic availability) |
+| POST | `/api/bookings` | Create new booking |
+| POST | `/api/bookings/promo/validate` | Validate promo code |
+| GET | `/api/health` | Health check |
 
-### Bookings
-- `POST /api/bookings` - Create a booking
-- `GET /api/bookings/:id` - Get booking details
-- `POST /api/bookings/promo/validate` - Validate promo code
+**Promo Codes:**
+- `SAVE10` → 10% discount
+- `FLAT100` → ₹100 flat discount
 
-### Promo Codes
-Available promo codes for testing:
-- `SAVE10` - 10% discount
-- `FLAT100` - ₹100 flat discount
+---
 
-## 🛠️ Technology Stack
+## 🐛 Troubleshooting
 
-### Frontend
-- **React 18.2.0** - UI library
-- **TypeScript 5.2.2** - Type safety
-- **Vite 5.1.0** - Build tool
-- **Tailwind CSS 3.4.6** - Styling
-- **React Router DOM** - Routing
+### Backend won't start
+- Check MongoDB URI in `.env`
+- Whitelist your IP in MongoDB Atlas (Network Access → `0.0.0.0/0`)
+- Ensure port 5000 is free
 
-### Backend
-- **Node.js** - Runtime
-- **Express 4.18.2** - Web framework
-- **MongoDB** - Database
-- **Mongoose 8.0.0** - ODM
-- **CORS** - Cross-origin support
-- **dotenv** - Environment management
+### Frontend shows blank page
+- Verify backend is running on port 5000
+- Check browser console (F12) for errors
+- Hard refresh: Ctrl+Shift+R
 
-## 📝 Development Workflow
-
-### Backend Development
+### Images not loading
 ```bash
 cd backend
-npm run dev  # Runs with nodemon for auto-reload
+node fix-images.js
 ```
 
-### Frontend Development
+### "Already has X experiences" when seeding
+This is normal! Seed script prevents duplicates. To re-seed:
+1. Delete `experiences` collection in MongoDB Atlas
+2. Run `node seed.js` again
+
+---
+
+## 🌐 Deployment
+
+**Live Application:** https://highway-delite-frontend-qvwl.onrender.com
+
+Deployed on Render:
+- **Backend:** Web Service (Node.js)
+- **Frontend:** Static Site (Vite build)
+
+To deploy your own:
+1. Push to GitHub
+2. Create Render Web Service for backend
+3. Create Render Static Site for frontend
+4. Add environment variables
+
+---
+
+## 📝 Key Implementation Highlights
+
+### Booking Persistence
+- Bookings stored permanently in MongoDB
+- Availability = `capacity - booked_quantity` (computed dynamically)
+- Survives server restarts
+- Prevents double-booking through real-time validation
+
+### Conditional Seeding
+- Seed script only runs if database is empty
+- Preserves existing bookings and experiences
+
+### Dynamic Availability
+- Each time slot has immutable `capacity`
+- Available slots calculated from bookings on every request
+- Real-time accuracy
+
+---
+
+## 👨‍💻 Author
+
+**Kaif Ali khan**  
+GitHub: [@kawfeee](https://github.com/kawfeee)  
+Repository: [highway-delite-assigment](https://github.com/kawfeee/highway-delite-assigment)
+
+---
+
+## 🎯 Quick Commands
+
 ```bash
-cd frontend
-npm run dev  # Runs Vite dev server with HMR
+# Clone & Install
+git clone https://github.com/kawfeee/highway-delite-assigment.git
+cd highway-delite-assigment
+cd backend && npm install
+cd ../frontend && npm install
+
+# Seed Database
+cd backend && node seed.js
+
+# Run Application
+cd backend && npm start          # Terminal 1
+cd frontend && npm run dev       # Terminal 2
+
+# Access
+open http://localhost:5173
 ```
 
-### Database Seeding
-```bash
-cd backend
-node seed.js  # Populates DB with 8 sample experiences
-```
+---
 
-## 🎯 User Flow
-
-1. **Browse Experiences** - User lands on home page with grid of experiences
-2. **View Details** - Click on an experience to see full details
-3. **Select Date/Time** - Choose from available dates and time slots
-4. **Set Quantity** - Select number of participants
-5. **Checkout** - Enter contact information
-6. **Apply Promo** - Optional promo code for discounts
-7. **Confirm Booking** - Submit booking and get confirmation
-8. **View Result** - See booking ID and confirmation details
-
-## 🚨 Troubleshooting
-
-### MongoDB Connection Error
-**Error:** `Could not connect to any servers in your MongoDB Atlas cluster`
-
-**Solution:** 
-1. Go to https://cloud.mongodb.com/
-2. Navigate to Network Access
-3. Add IP Address → Add Current IP Address or Allow Access from Anywhere
-
-### Port Already in Use
-**Frontend:** Change Vite port in `frontend/vite.config.ts`
-```ts
-export default defineConfig({
-  server: { port: 3000 }
-})
-```
-
-**Backend:** Change port in `backend/.env`
-```
-PORT=5001
-```
-
-### TypeScript Errors for SVG Imports
-These are expected and resolve at runtime. The `src/env.d.ts` file handles type declarations.
-
-## 📚 Semantic Class Names
-
-All major UI elements have `hd-*` prefixed class names for easy targeting:
-
-- `hd-app-root` - App root container
-- `hd-header` - Header section
-- `hd-logo` - Logo container
-- `hd-search-area` - Search section
-- `hd-card` - Experience card
-- `hd-detail-title` - Detail page title
-- And many more...
-
-## 🔄 API Service Layer
-
-The frontend uses a centralized API service (`src/services/api.ts`) for all backend communication:
-
-```typescript
-import apiService from '@/services/api'
-
-// Get all experiences
-const experiences = await apiService.getExperiences()
-
-// Get single experience
-const experience = await apiService.getExperienceById(id)
-
-// Create booking
-const booking = await apiService.createBooking(bookingData)
-
-// Validate promo
-const result = await apiService.validatePromoCode(code)
-```
-
-## 🎨 Styling
-
-- **Tailwind CSS** for utility-first styling
-- **Inter Font** from Google Fonts
-- **Brand Color:** Yellow (#ffcc00) for CTAs
-- **Responsive Design:** Mobile-first approach
-
-## 📊 Database Schema
-
-### Experience Collection
-```javascript
-{
-  _id: ObjectId,
-  title: String,
-  location: String,
-  price: Number,
-  image: String,
-  short: String,
-  description: String,
-  availableDates: [String],
-  timeSlots: [{
-    time: String,
-    available: Number,
-    soldOut: Boolean
-  }],
-  minAge: Number,
-  aboutText: String,
-  images: [String],
-  timestamps: true
-}
-```
-
-### Booking Collection
-```javascript
-{
-  _id: ObjectId,
-  experienceId: ObjectId,
-  experienceTitle: String,
-  selectedDate: String,
-  selectedTime: String,
-  quantity: Number,
-  customerName: String,
-  customerEmail: String,
-  customerPhone: String,
-  promoCode: String,
-  subtotal: Number,
-  taxes: Number,
-  discount: Number,
-  total: Number,
-  status: String,
-  bookingDate: Date,
-  timestamps: true
-}
-```
-
-## 🎉 Ready to Go!
-
-Both servers should now be running:
-- Frontend: http://localhost:5173
-- Backend: http://localhost:5000
-
-Start exploring experiences and making bookings! 🚀
+**Made with ❤️ for Highway Delite Fullstack Assignment**
