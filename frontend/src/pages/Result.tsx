@@ -34,13 +34,13 @@ export default function Result() {
             
           </Link>
           <div className="flex-1"></div>
-          <div className="hd-search-area flex items-center gap-3 w-1/3">
+          <div className="hd-search-area flex items-center gap-2 w-full md:w-1/3">
             <input
               type="text"
               placeholder="Search experiences"
-              className="hd-search-input w-full border rounded px-4 py-2 text-sm focus:outline-none bg-[#EDEDED]"
+              className="hd-search-input w-full border rounded px-3 md:px-4 py-2 text-sm focus:outline-none bg-[#EDEDED]"
             />
-            <button className="hd-search-button bg-yellow-400 text-xs px-4 py-2 rounded shadow-sm font-semibold">Search</button>
+            <button className="hd-search-button bg-yellow-400 text-xs px-3 md:px-4 py-2 rounded shadow-sm font-semibold whitespace-nowrap">Search</button>
           </div>
         </div>
       </header>
