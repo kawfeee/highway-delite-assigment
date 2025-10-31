@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <div className="hd-app-root min-h-screen bg-gray-50 font-sans" data-testid="app-root">
-      <header className="hd-header shadow-sm" style={{ height: '87px', backgroundColor: '#F9F9F9' }} data-testid="header">
+      <header className="hd-header" style={{ height: '87px', backgroundColor: '#F9F9F9', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)' }} data-testid="header">
         <div className="hd-header-inner max-w-7xl mx-auto px-6 pt-1 pb-3 flex items-center gap-6">
           <div className="hd-logo flex items-center gap-3" data-testid="logo">
             <div className="hd-logo-icon w-20 h-20 rounded-full flex items-center justify-center overflow-hidden">

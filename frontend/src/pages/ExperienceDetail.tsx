@@ -82,7 +82,7 @@ export default function ExperienceDetail() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {/* Header */}
-      <header className="hd-header shadow-sm" style={{ height: '87px', backgroundColor: '#F9F9F9' }}>
+      <header className="hd-header" style={{ height: '87px', backgroundColor: '#F9F9F9', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)' }}>
         <div className="hd-header-inner max-w-7xl mx-auto px-6 pt-1 pb-3 flex items-center gap-6">
           <Link to="/" className="hd-logo flex items-center gap-3">
             <div className="hd-logo-icon w-20 h-20 rounded-full flex items-center justify-center overflow-hidden">
@@ -147,6 +147,7 @@ export default function ExperienceDetail() {
                           ? 'bg-yellow-400 border-yellow-400 font-semibold' 
                           : 'bg-white border-gray-300 hover:border-gray-400 text-[#838383]'
                       }`}
+                      style={!isSelected ? { fontWeight: 400 } : {}}
                     >
                       {month} {day}
                     </button>
@@ -176,6 +177,7 @@ export default function ExperienceDetail() {
                           ? 'bg-yellow-400 font-semibold'
                           : 'bg-white border border-gray-300 hover:border-gray-400 text-[#838383]'
                       }`}
+                      style={!isSelected && !isSoldOut ? { fontWeight: 400 } : {}}
                     >
                       <span>{slot.time}</span>
                       {!isSoldOut && <span className="text-xs text-red-500">{slot.available} left</span>}

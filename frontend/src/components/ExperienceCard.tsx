@@ -4,7 +4,7 @@ import { Experience } from '../services/api'
 
 export default function ExperienceCard({ experience }: { experience: Experience }) {
   return (
-    <div className="hd-card bg-white rounded-lg overflow-hidden" style={{ width: '295px', height: '312px' }} data-testid={`card-${experience._id}`}>
+    <div className="hd-card bg-white overflow-hidden" style={{ width: '295px', height: '312px', borderRadius: '12px' }} data-testid={`card-${experience._id}`}>
       <div className="hd-card-image h-40 bg-gray-200 overflow-hidden">
         <img src={experience.image} alt={experience.title} className="hd-card-img w-full h-full object-cover" data-testid={`card-${experience._id}-image`} />
       </div>
@@ -18,7 +18,7 @@ export default function ExperienceCard({ experience }: { experience: Experience 
         </div>
 
         <div className="hd-card-footer mt-4 flex items-center justify-between">
-          <div className="hd-price text-sm text-gray-700" data-testid={`card-${experience._id}-price`}>From <span className="font-semibold">₹{experience.price}</span></div>
+          <div className="hd-price text-sm text-gray-700" data-testid={`card-${experience._id}-price`}><span className="text-xs">From</span> <span style={{ fontWeight: 500, fontSize: '20px', color: '#161616' }}>₹{experience.price}</span></div>
           <Link to={`/experience/${experience._id}`}>
             <button className="hd-action-button bg-yellow-400 text-xs px-3 py-2 rounded shadow-sm font-semibold" data-testid={`card-${experience._id}-button`}>View Details</button>
           </Link>

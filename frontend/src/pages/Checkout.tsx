@@ -117,7 +117,7 @@ export default function Checkout() {
   return (
     <div className="hd-checkout-page min-h-screen bg-white font-sans">
       {/* Header */}
-      <header className="hd-header border-b" style={{ height: '87px', backgroundColor: '#F9F9F9' }}>
+      <header className="hd-header" style={{ height: '87px', backgroundColor: '#F9F9F9', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)' }}>
         <div className="hd-header-inner max-w-7xl mx-auto px-6 pt-1 pb-3 flex items-center gap-6">
           <Link to="/" className="hd-logo flex items-center gap-3">
             <div className="hd-logo-icon w-20 h-20 rounded-full flex items-center justify-center overflow-hidden">
