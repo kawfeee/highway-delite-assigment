@@ -193,13 +193,13 @@ export default function Checkout() {
                       onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
                       placeholder=""
                       disabled={promoApplied}
-                      className="hd-promo-input flex-1 border border-gray-300 rounded px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 bg-[#DDDDDD] disabled:opacity-60"
+                      className="hd-promo-input flex-1 border border-gray-300 rounded px-3 md:px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 bg-[#DDDDDD] disabled:opacity-60"
                     />
                     <button
                       type="button"
                       onClick={handleApplyPromo}
                       disabled={promoApplied}
-                      className="hd-promo-apply-button bg-black text-white text-sm px-6 py-2.5 rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                      className="hd-promo-apply-button bg-black text-white text-sm px-4 md:px-6 py-2.5 rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed whitespace-nowrap"
                     >
                       Apply
                     </button>
